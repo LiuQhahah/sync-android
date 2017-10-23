@@ -294,6 +294,8 @@ public class CouchClient  {
 
     public ChangesResult changes(String filterName, Map<String, String> filterParameters, Object since, Integer limit) {
         Map<String, Object> options = getDefaultChangeFeedOptions();
+        // improve performance and reduce load on the remote database
+        options.put("seq_interval", limit);
         if(filterName != null) {
             options.put("filter", filterName);
             if(filterParameters != null) {
